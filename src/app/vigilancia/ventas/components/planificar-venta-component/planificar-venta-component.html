@@ -1,0 +1,28 @@
+<div class="text-center">
+    <h1>Planificacion de Ventas</h1>
+</div>
+<br>
+<br>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <div><p-datepicker class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" /></div>
+    <div >
+        <p-select [options]="clientes" [(ngModel)]="selectedCliente" optionLabel="cliente" [filter]="true" filterBy="nombre" [showClear]="true" placeholder="Seleccione Cliente" class="w-full md:w-56">
+            <ng-template #selectedItem let-selectedOption>
+                <div class="flex items-center gap-2">                        
+                    <div>{{ selectedOption.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country #item>
+                <div class="flex items-center gap-2">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                    <div>{{ clientes.nombre }}</div>
+                </div>
+            </ng-template>
+        </p-select>
+    </div>       
+        
+</div>
+<div class="card flex flex-wrap gap-4 justify-end">
+  <p-button label="Cancelar Planificacion" severity="danger" icon="pi pi-plus"/>
+  <p-button label="Crear Planificacion" severity="success" icon="pi pi-check"/>
+</div>
