@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,

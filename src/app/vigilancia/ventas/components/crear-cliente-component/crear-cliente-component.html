@@ -1,12 +1,11 @@
+<p-toast></p-toast>
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <p-button label="Nuevo Cliente" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
-        <p-button severity="secondary" label="Borrar Cliente" icon="pi pi-trash" outlined (onClick)="deleteSelectedClients()" [disabled]="!selectedClients || !selectedClients.length" />
+        <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
+        <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedClients || !selectedClients.length" />
     </ng-template>
 
-    <ng-template #end>
-        <p-button label="Export" icon="pi pi-upload" severity="secondary" />
-    </ng-template>
+
 </p-toolbar>
 
 <p-table
@@ -15,90 +14,84 @@
     [rows]="10"
     [columns]="cols"
     [paginator]="true"
-    [globalFilterFields]="[]"
-    [tableStyle]="{ 'min-width': '75rem' }"
+    [globalFilterFields]="['nombre', 'nombre_facturacion', 'telefono','contacto']"
+    [tableStyle]="{ 'min-width': '65rem' }"
     [(selection)]="selectedClients"
     [rowHover]="true"
     dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} clients"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} clientes"
     [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 20, 30]"
 >
     <ng-template #caption>
         <div class="flex items-center justify-between">
-            <h5 class="m-0">Administrar Cliente</h5>
+            <h5 class="m-0">Manage Products</h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
-                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..." />
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." />
             </p-iconfield>
         </div>
     </ng-template>
     <ng-template #header>
         <tr>
-            <th style="width: 10%"><p-tableHeaderCheckbox /></th>
-            <th style="width: 20%">Nombre</th>
-            <th style="width: 20%">Contacto</th>
-            <th style="width: 20%">Telefono</th>
-            <th></th>
-        </tr>
-        <tr>
-            <th></th>
-            <th>
-                <p-columnFilter type="text" field="nombre" placeholder="Buscar" ariaLabel="Filtrar Nombre" filterOn="input"></p-columnFilter>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox />
             </th>
-            <th>
-                <p-columnFilter type="text" field="contacto" placeholder="Buscar" ariaLabel="Filtrar Contacto" filterOn="input"></p-columnFilter>
+            <th pSortableColumn="nombre" style="min-width: 16rem">
+                Nombre
+                <p-sortIcon field="nombre" />
             </th>
-            <th>
-                <p-columnFilter type="text" field="telefono" placeholder="Buscar" ariaLabel="Filtrar Telefono" filterOn="input"></p-columnFilter>
+            <th pSortableColumn="telefono" style="min-width: 10rem">
+                telefono
+                <p-sortIcon field="telefono" />
+            </th>
+            <th pSortableColumn="contacto" style="min-width: 10rem">
+                contacto
+                <p-sortIcon field="contacto" />
             </th>
         </tr>
     </ng-template>
-
     <ng-template #body let-client>
         <tr>
-            <td>
+            <td style="width: 3rem">
                 <p-tableCheckbox [value]="client" />
             </td>
-            <td>{{ client.nombre }}</td>
-            <td>{{ client.contacto }}</td>
-            <td>{{ client.telefono }}</td>
+            <td style="min-width: 12rem">{{ client.nombre }}</td>
+            <td style="min-width: 12rem">{{ client.telefono }}</td>
+            <td style="min-width: 12rem">{{ client.contacto }}</td>
             <td>
-                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(client)" />
-                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(client)" />
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editClient(client)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteClient(client)" />
             </td>
         </tr>
     </ng-template>
 </p-table>
 
-
-<p-dialog [(visible)]="clientDialog" [style]="{ width: '450px' }" header="Detalles Cliente" [modal]="true">
+<p-dialog [(visible)]="clientDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
     <ng-template #content>
-        <div class="flex flex-col gap-6">            
+        <div class="flex flex-col gap-6">
             <div>
                 <label for="nombre" class="block font-bold mb-3">Nombre</label>
-                <input type="text" pInputText id="nombre" [(ngModel)]="client.nombre" required autofocus fluid />
+                <input type="text" pInputText id="contacto" [(ngModel)]="client.nombre" required autofocus fluid />
                 <small class="text-red-500" *ngIf="submitted && !client.nombre">Nombre es requerido.</small>
             </div>
-             <div>
+            <div>
                 <label for="telefono" class="block font-bold mb-3">Telefono</label>
                 <input type="text" pInputText id="telefono" [(ngModel)]="client.telefono" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !client.telefono">El telefono es requerido.</small>
+                <small class="text-red-500" *ngIf="submitted && !client.telefono">Telefono es requerido.</small>
             </div>
-
-             <div>
+            <div>
                 <label for="contacto" class="block font-bold mb-3">Contacto</label>
                 <input type="text" pInputText id="contacto" [(ngModel)]="client.contacto" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !client.contacto">El contacto es requerido.</small>
+                <small class="text-red-500" *ngIf="submitted && !client.contacto">Contacto es requerido.</small>
             </div>
-
-            
-            
         </div>
     </ng-template>
 
     <ng-template #footer>
-        <p-button label="Cancelar" icon="pi pi-times" text (click)="hideDialog()" />
-        <p-button label="Guardar" icon="pi pi-check" (click)="saveProduct()" />
+        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Save" icon="pi pi-check" (click)="saveClient()" />
     </ng-template>
 </p-dialog>
+
+<p-confirmdialog [style]="{ width: '450px' }" />

@@ -7,6 +7,7 @@ import { ListaVentaConFolioComponent } from "./ventas/components/lista-venta-con
 import { ListaVentaSinFolioComponent } from "./ventas/components/lista-venta-sin-folio-component/lista-venta-sin-folio-component";
 import { ListaClienteComponent } from "./ventas/components/lista-cliente-component/lista-cliente-component";
 import { CrearClienteComponent } from "./ventas/components/crear-cliente-component/crear-cliente-component";
+import { AdministrarProveedorComponent } from "./provedores/components/administrar-proveedor-component/administrar-proveedor-component";
 
 
 
@@ -19,5 +20,6 @@ export default [
     { path: 'lista-venta-con-folio', data: { breadcrumb: 'Lista de Venta con folio' }, component: ListaVentaConFolioComponent },
     { path: 'lista-venta-sin-folio', data: { breadcrumb: 'Lista de Venta sin folio' }, component: ListaVentaSinFolioComponent },
     { path: 'lista-clientes', data: { breadcrumb: 'Lista de Clientes' }, component: ListaClienteComponent },
+    { path: 'lista-proveedores', data: { breadcrumb: 'Lista de Proveedores' }, component: AdministrarProveedorComponent },
     { path: '**', redirectTo: '/notfound' }
 ] as Routes;

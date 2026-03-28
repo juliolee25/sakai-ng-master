@@ -1,0 +1,112 @@
+<p-toast></p-toast>
+<p-toolbar styleClass="mb-6">
+    <ng-template #start>
+        <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
+        <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProveedors || !selectedProveedors.length" />
+    </ng-template>
+</p-toolbar>
+
+<p-table
+    #dt
+    [value]="proveedors()"
+    [rows]="10"
+    [columns]="cols"
+    [paginator]="true"
+    [globalFilterFields]="['nombre', 'nombre_facturacion', 'telefono','contacto']"
+    [tableStyle]="{ 'min-width': '65rem' }"
+    [(selection)]="selectedProveedors"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} clientes"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+>
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <h5 class="m-0">Manage Products</h5>
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." />
+            </p-iconfield>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox />
+            </th>
+            <th pSortableColumn="nombre" style="min-width: 13rem">
+                Provedor
+                <p-sortIcon field="nombre" />
+            </th>
+            <th pSortableColumn="nombre_facturacion" style="min-width: 13rem">
+                Nombre Facturacion
+                <p-sortIcon field="nombre_facturacion" />
+            </th>
+            <th pSortableColumn="telefono" style="min-width: 8rem">
+                telefono
+                <p-sortIcon field="telefono" />
+            </th>
+            <th pSortableColumn="cuenta_bancaria" style="min-width: 8rem">
+                Numero de Cuenta
+                <p-sortIcon field="cuenta_bancaria" />
+            </th>
+            <th pSortableColumn="correo_electronico" style="min-width: 8rem">
+                Correo Electronico
+                <p-sortIcon field="correo_electronico" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-client>
+        <tr>
+            <td style="width: 3rem">
+                <p-tableCheckbox [value]="client" />
+            </td>
+            <td style="min-width: 8rem">{{ client.nombre }}</td>
+            <td style="min-width: 8rem">{{ client.nombre_facturacion }}</td>
+            <td style="min-width: 8rem">{{ client.telefono }}</td>
+            <td style="min-width: 8rem">{{ client.cuenta_bancaria }}</td>
+            <td style="min-width: 8rem">{{ client.correo_electronico }}</td>
+            <td>
+                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editClient(client)" />
+                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteClient(client)" />
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="proveedorDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
+    <ng-template #content>
+        <div class="flex flex-col gap-6">
+            <div>
+                <label for="nombre" class="block font-bold mb-3">Nombre</label>
+                <input type="text" pInputText id="contacto" [(ngModel)]="proveedor.nombre" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !proveedor.nombre">Nombre es requerido.</small>
+            </div>
+            <div>
+                <label for="nombre_facturacion" class="block font-bold mb-3">Nombre Facturacion</label>
+                <input type="text" pInputText id="nombre_facturacion" [(ngModel)]="proveedor.nombre_facturacion" required autofocus fluid />
+                <small class="text-red-500" *ngIf="submitted && !proveedor.nombre_facturacion">Nombre en que factura es requerido.</small>
+            </div>
+            <div>
+                <label for="telefono" class="block font-bold mb-3">Telefono</label>
+                <input type="text" pInputText id="telefono" [(ngModel)]="proveedor.telefono" required autofocus fluid />
+            </div>
+            <div>
+                <label for="cuenta_bancaria" class="block font-bold mb-3">Numero de Cuenta Bancaria</label>
+                <input type="number" pInputText id="cuenta_bancaria" [(ngModel)]="proveedor.cuenta_bancaria" required autofocus fluid />
+            </div>
+            <div>
+                <label for="correo_electronico" class="block font-bold mb-3">Telefono</label>
+                <input type="text" pInputText id="correo_electronico" [(ngModel)]="proveedor.correo_electronico" required autofocus fluid />
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #footer>
+        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+        <p-button label="Save" icon="pi pi-check" (click)="saveClient()" />
+    </ng-template>
+</p-dialog>
+
+<p-confirmdialog [style]="{ width: '450px' }" />

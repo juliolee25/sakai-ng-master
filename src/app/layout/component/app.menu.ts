@@ -25,20 +25,25 @@ export class AppMenu {
                 items: [{ label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
             {
+                label: 'Recursos Humanos',
+                 icon: 'pi pi-fw pi-cart-plus',
+                items: [{ label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+            },
+            {
                 label: 'Vigilancia',
                 items: [
                     {
                         label: 'Ventas',
                         icon: 'pi pi-fw pi-cart-plus',
                         items: [
-                                { label: 'Crear Cliente', icon: 'pi pi-fw pi-users', routerLink: ['/vigilancia/crear-cliente'] },
+                                { label: 'Administrar Cliente', icon: 'pi pi-fw pi-users', routerLink: ['/vigilancia/crear-cliente'] },
                                 { label: 'Planificar Venta', icon: 'pi pi-fw pi-calendar-clock', routerLink: ['/vigilancia/planificar-venta'] },
                                 { label: 'Venta de fibra', icon: 'pi pi-fw pi-barcode', routerLink: ['/vigilancia/venta-fibra-regenerada'] },                                
                                 { label: 'Venta sin Folio', icon: 'pi pi-fw pi-dollar', routerLink: ['/vigilancia/venta-sin-folio'] },
                                 { label: 'Lista Ventas Pendientes', icon: 'pi pi-fw pi-list', routerLink: ['/vigilancia/lista-venta-pendiente'] },
                                 { label: 'Lista Ventas con Folios', icon: 'pi pi-fw pi-list', routerLink: ['/vigilancia/lista-venta-con-folio'] },
                                 { label: 'Lista Ventas Sin Folios', icon: 'pi pi-fw pi-list', routerLink: ['/vigilancia/lista-venta-sin-folio'] },
-                                { label: 'Lista de Clientes', icon: 'pi pi-fw pi-list', routerLink: ['/vigilancia/lista-clientes'] },
+                                { label: 'Administrar Clientes', icon: 'pi pi-fw pi-list', routerLink: ['/vigilancia/lista-clientes'] },
                             ]
                     }, 
                     {
@@ -47,7 +52,7 @@ export class AppMenu {
                         items: [
                             { label: 'Planificar proveedor', icon: 'pi pi-fw pi-calendar-clock', routerLink: ['/landing'] },
                             { label: 'Entrada de Material', icon: 'pi pi-fw pi-truck', routerLink: ['/landing'] },                                                     
-                            { label: 'Lista de Provedores', icon: 'pi pi-fw pi-list', routerLink: ['/landing'] },
+                            { label: 'Administrar Provedores', icon: 'pi pi-fw pi-users', routerLink: ['/vigilancia/lista-proveedores'] },
                         ]
                     }, 
                     {
@@ -59,6 +64,7 @@ export class AppMenu {
                    
                 ]
             },
+            
             {
                 label: 'Pages',
                 icon: 'pi pi-fw pi-briefcase',
